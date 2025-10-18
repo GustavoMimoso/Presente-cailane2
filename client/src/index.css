@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fce7f3, #ede9fe, #fce7f3);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Rosa e texto */
+.animate-fadeIn {
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Brilho de fundo atrás da rosa */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Corações flutuando */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-250px) scale(1.8) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+.animate-float {
+  animation: floatUp 5s ease-out forwards;
+}
+
+/* Partículas de brilho */
+@keyframes sparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(360deg);
+  }
+}
+
+/* Pétalas caindo */
+@keyframes cair {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Borboletas voando */
+@keyframes voar {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10vh) rotate(180deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Tulipas laterais surgindo e balançando */
+@keyframes surgirLateral {
+  from {
+    transform: translateX(-100px) scale(0) rotate(-20deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes balancarLateral {
+  0%, 100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+/* Estames da rosa pulsando */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+/* Texto brilhante */
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(251, 182, 206, 0.5),
+                 0 0 20px rgba(251, 182, 206, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(251, 182, 206, 0.9),
+                 0 0 40px rgba(251, 182, 206, 0.6),
+                 0 0 60px rgba(251, 182, 206, 0.3);
+  }
+}
+
+.animate-textGlow {
+  animation: textGlow 3s ease-in-out infinite;
+}
