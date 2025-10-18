@@ -1,150 +1,188 @@
+/* client/src/index.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Global Styles */
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #fce7f3, #ede9fe, #fce7f3);
+  background: linear-gradient(135deg, #f3e8ff, #ddd6fe, #ede9fe);
   margin: 0;
   overflow-x: hidden;
 }
 
-/* Rosa e texto */
+/* Scroll Snap Sections */
+.section-full {
+  min-height: 100vh;
+  scroll-snap-align: start;
+}
+
+.app-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+/* Dark Mode */
+.night-mode {
+  background: linear-gradient(135deg, #1e1b4b, #312e81, #1e1b4b);
+}
+.night-mode .text-purple-900 {
+  color: #f3e8ff;
+}
+.night-mode .text-purple-700 {
+  color: #e9d5ff;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 .animate-fadeIn {
   animation: fadeIn 1.5s ease-out forwards;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Brilho de fundo atrás da rosa */
 @keyframes pulseGlow {
-  0%, 100% {
-    opacity: 0.3;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    opacity: 0.5;
-    transform: translate(-50%, -50%) scale(1.1);
-  }
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 0.5; transform: translate(-50%, -50%) scale(1.1); }
 }
-
-/* Corações flutuando */
 @keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-250px) scale(1.8) rotate(15deg);
-    opacity: 0;
-  }
+  0%   { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-250px) scale(1.8) rotate(15deg); opacity: 0; }
 }
-
 .animate-float {
   animation: floatUp 5s ease-out forwards;
 }
 
-/* Partículas de brilho */
 @keyframes sparkle {
-  0% {
-    opacity: 0;
-    transform: scale(0) rotate(0deg);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.5) rotate(180deg);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.5) rotate(360deg);
-  }
+  0%   { opacity: 0; transform: scale(0) rotate(0deg); }
+  50%  { opacity: 1; transform: scale(1.5) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0.5) rotate(360deg); }
 }
 
-/* Pétalas caindo */
 @keyframes cair {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(110vh) rotate(360deg);
-    opacity: 0;
-  }
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 
-/* Borboletas voando */
 @keyframes voar {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(-10vh) rotate(180deg);
-  }
-  100% {
-    transform: translateY(0) rotate(360deg);
-    opacity: 0;
-  }
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { transform: translateY(-10vh) rotate(180deg); }
+  100% { transform: translateY(0) rotate(360deg); opacity: 0; }
 }
 
-/* Tulipas laterais surgindo e balançando */
 @keyframes surgirLateral {
-  from {
-    transform: translateX(-100px) scale(0) rotate(-20deg);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0) scale(1) rotate(0deg);
-    opacity: 1;
-  }
+  from { transform: translateX(-100px) scale(0) rotate(-20deg); opacity: 0; }
+  to   { transform: translateX(0) scale(1) rotate(0deg); opacity: 1; }
 }
 
 @keyframes balancarLateral {
-  0%, 100% {
-    transform: rotate(-5deg);
-  }
-  50% {
-    transform: rotate(5deg);
-  }
+  0%, 100% { transform: rotate(-5deg); }
+  50%       { transform: rotate(5deg); }
 }
 
-/* Estames da rosa pulsando */
 @keyframes pulse {
-  0%, 100% {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.3);
-  }
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50%       { opacity: 1; transform: scale(1.3); }
 }
 
-/* Texto brilhante */
 @keyframes textGlow {
   0%, 100% {
-    text-shadow: 0 0 10px rgba(251, 182, 206, 0.5),
-                 0 0 20px rgba(251, 182, 206, 0.3);
+    text-shadow:
+      0 0 10px rgba(197, 134, 255, 0.5),
+      0 0 20px rgba(197, 134, 255, 0.3);
   }
   50% {
-    text-shadow: 0 0 20px rgba(251, 182, 206, 0.9),
-                 0 0 40px rgba(251, 182, 206, 0.6),
-                 0 0 60px rgba(251, 182, 206, 0.3);
+    text-shadow:
+      0 0 20px rgba(197, 134, 255, 0.9),
+      0 0 40px rgba(197, 134, 255, 0.6),
+      0 0 60px rgba(197, 134, 255, 0.3);
   }
 }
 
-.animate-textGlow {
-  animation: textGlow 3s ease-in-out infinite;
+/* Star & Sparkle Animations */
+@keyframes voarEstrela {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+}
+@keyframes piscar {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 1; }
+}
+
+/* 3D Flip for CartasSecretas */
+.perspective-600 {
+  perspective: 600px;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-0 {
+  transform: rotateY(0deg);
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Pulse Slow */
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.3); }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 2s ease-in-out infinite;
+}
+
+/* Scrollbar Hide */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Horizontal Timeline */
+.timeline-wrap {
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.timeline-horizontal {
+  white-space: nowrap;
+  padding: 0 1rem 1rem;
+}
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+/* Scroll Snap Settings */
+.snap-x {
+  scroll-snap-type: x mandatory;
+}
+.snap-mandatory {
+  scroll-snap-stop: always;
+}
+.snap-center {
+  scroll-snap-align: center;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f3e8ff;
+}
+::-webkit-scrollbar-thumb {
+  background: #a78bfa;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
 }

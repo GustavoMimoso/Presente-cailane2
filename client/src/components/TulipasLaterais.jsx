@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function TulipasLaterais() {
-  const cores = ['#fbb6ce', '#d8b4fe'];
+  const cores = ['#c4b5fd', '#a78bfa'];
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function TulipasLaterais() {
       </div>
       {/* Lado direito */}
       <div className="absolute right-0 top-0 bottom-0 flex flex-col justify-around items-center w-32 z-5 pointer-events-none">
-        {cores.reverse().map((cor, i) => (
+        {cores.slice().reverse().map((cor, i) => (
           <TulipaGrandeSVG
             key={`right-${i}`}
             lado="direita"
@@ -31,7 +31,6 @@ export default function TulipasLaterais() {
   );
 }
 
-// Componente auxiliar TulipaGrandeSVG
 function TulipaGrandeSVG({ lado, delay, cor }) {
   return (
     <svg
@@ -59,7 +58,7 @@ function TulipaGrandeSVG({ lado, delay, cor }) {
       {/* Caule */}
       <path
         d="M 40 120 Q 35 80, 40 60"
-        stroke="#16a34a"
+        stroke="#7c3aed"
         strokeWidth="4"
         fill="none"
         strokeLinecap="round"
@@ -71,7 +70,7 @@ function TulipaGrandeSVG({ lado, delay, cor }) {
         cy="85"
         rx="12"
         ry="20"
-        fill="#22c55e"
+        fill="#7c3aed"
         opacity="0.8"
         transform="rotate(-30 25 85)"
       />

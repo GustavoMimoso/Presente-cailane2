@@ -1,9 +1,5 @@
 import React from 'react';
 
-/**
- * Galeria de Fotos Interativa
- * Exibe imagens em grid com lightbox simples ao clicar
- */
 export default function GaleriaFotos() {
   const fotos = [
     { src: '/fotos/foto1.jpg', alt: 'Nosso primeiro encontro' },

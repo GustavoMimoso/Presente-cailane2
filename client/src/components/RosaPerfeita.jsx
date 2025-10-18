@@ -31,10 +31,11 @@ export default function RosaPerfeita({ svgRef, open, onClick, modoNoturno }) {
         maxHeight: '700px',
         filter: modoNoturno
           ? 'drop-shadow(0 10px 40px rgba(255, 255, 255, 0.4))'
-          : 'drop-shadow(0 10px 40px rgba(236, 72, 153, 0.4))',
+          : 'drop-shadow(0 10px 40px rgba(147, 112, 219, 0.7))',
       }}
     >
       <defs>
+        {/* Gradientes sofisticados */}
         <radialGradient id="petalPink1" cx="40%" cy="40%">
           <stop offset="0%" stopColor="#fff1f2" />
           <stop offset="40%" stopColor="#fce7f3" />
@@ -44,18 +45,18 @@ export default function RosaPerfeita({ svgRef, open, onClick, modoNoturno }) {
         <radialGradient id="petalPink2" cx="35%" cy="35%">
           <stop offset="0%" stopColor="#fce7f3" />
           <stop offset="50%" stopColor="#fbcfe8" />
-          <stop offset="100%" stopColor="#ec4899" />
+          <stop offset="100%" stopColor="#7e22ce" />
         </radialGradient>
         <radialGradient id="petalPurple1" cx="40%" cy="40%">
           <stop offset="0%" stopColor="#faf5ff" />
-          <stop offset="40%" stopColor="#f3e8ff" />
-          <stop offset="70%" stopColor="#e9d5ff" />
-          <stop offset="100%" stopColor="#d8b4fe" />
+          <stop offset="40%" stopColor="#ede9fe" />
+          <stop offset="70%" stopColor="#d8b4fe" />
+          <stop offset="100%" stopColor="#9d7ace" />
         </radialGradient>
         <radialGradient id="centerGlow" cx="50%" cy="50%">
-          <stop offset="0%" stopColor="#fce7f3" />
-          <stop offset="50%" stopColor="#f9a8d4" />
-          <stop offset="100%" stopColor="#ec4899" />
+          <stop offset="0%" stopColor="#ede9fe" />
+          <stop offset="50%" stopColor="#c4b5fd" />
+          <stop offset="100%" stopColor="#831843" />
         </radialGradient>
         <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
@@ -63,7 +64,7 @@ export default function RosaPerfeita({ svgRef, open, onClick, modoNoturno }) {
         </filter>
         <filter id="strongGlow">
           <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
-          <feFlood floodColor="#fbb6ce" floodOpacity="0.8" />
+          <feFlood floodColor="#a78bfa" floodOpacity="0.8" />
           <feComposite in2="blur" operator="in" result="glow" />
           <feMerge>
             <feMergeNode in="glow" />
@@ -129,8 +130,8 @@ export default function RosaPerfeita({ svgRef, open, onClick, modoNoturno }) {
       {/* Centro da rosa */}
       <circle cx="200" cy="200" r="65" fill="url(#petalPink2)" opacity="0.9" filter="url(#softGlow)" />
       <circle cx="200" cy="200" r="50" fill="url(#centerGlow)" opacity="0.95" />
-      <circle cx="200" cy="200" r="35" fill="#f9a8d4" filter="url(#strongGlow)" />
-      <circle cx="200" cy="200" r="20" fill="#ec4899" opacity="0.9" />
+      <circle cx="200" cy="200" r="35" fill="#a78bfa" filter="url(#strongGlow)" />
+      <circle cx="200" cy="200" r="20" fill="#831843" opacity="0.9" />
 
       {/* Estames animados */}
       {[...Array(12)].map((_, idx) => {
@@ -144,7 +145,7 @@ export default function RosaPerfeita({ svgRef, open, onClick, modoNoturno }) {
             cx={x}
             cy={y}
             r="3"
-            fill="#fbbf24"
+            fill="#ba94e6"
             opacity="0.8"
             style={{
               animation: open ? 'pulse 2s ease-in-out infinite' : 'none',
