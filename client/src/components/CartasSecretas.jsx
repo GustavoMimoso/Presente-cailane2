@@ -1,6 +1,6 @@
 // client/src/components/CartasSecretas.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function CartasSecretas() {
   const mensagens = [
@@ -57,35 +57,86 @@ export default function CartasSecretas() {
   ];
 
   const [abertas, setAbertas] = useState([]);
+  const canvasRef = useRef(null);
 
-  const toggleCarta = (idx) => {
+  // Particle background (sparkles)
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let W, H, particles;
+
+    const init = () => {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+      particles = Array.from({ length: 60 }).map(() => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        size: Math.random() * 3 + 1,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.5 + 0.5
+      }));
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = W;
+        if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H;
+        if (p.y > H) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    };
+
+    init();
+    draw();
+    window.addEventListener('resize', init);
+    return () => window.removeEventListener('resize', init);
+  }, []);
+
+  const toggleCarta = idx => {
     setAbertas(prev =>
       prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
     );
   };
 
   return (
-    <div className="flex flex-wrap justify-center gap-4 px-4 py-8">
+    <div className="relative flex flex-wrap justify-center items-start gap-6 p-8 min-h-screen overflow-hidden">
+      <canvas
+        ref={canvasRef}
+        className="absolute top-0 left-0 w-full h-full pointer-events-none"
+      />
       {mensagens.map((texto, idx) => {
         const aberta = abertas.includes(idx);
         return (
           <div
             key={idx}
-            className="relative w-40 h-24 cursor-pointer perspective-600"
+            className="relative w-44 h-28 perspective-600 cursor-pointer"
             onClick={() => toggleCarta(idx)}
           >
-            {/* Verso (visível inicialmente) */}
+            {/* Back of card */}
             <div
-              className={`absolute inset-0 bg-purple-100 rounded-lg shadow-inner backface-hidden transition-transform duration-700 ${aberta ? 'rotate-y-180' : 'rotate-y-0'}`}
+              className={`absolute inset-0 bg-gradient-to-br from-pink-200 to-purple-300 rounded-lg shadow-lg backface-hidden transition-transform duration-700 ${
+                aberta ? 'rotate-y-180' : 'rotate-y-0'
+              }`}
               style={{ transformStyle: 'preserve-3d', zIndex: aberta ? 1 : 2 }}
             />
 
-            {/* Face frontal (mensagem) */}
+            {/* Front of card */}
             <div
-              className={`absolute inset-0 bg-white rounded-lg shadow-lg backface-hidden flex items-center justify-center p-4 transition-transform duration-700 ${aberta ? 'rotate-y-0' : 'rotate-y-180'}`}
+              className={`absolute inset-0 bg-white rounded-lg shadow-2xl backface-hidden flex items-center justify-center p-4 text-center transition-transform duration-700 ${
+                aberta ? 'rotate-y-0' : 'rotate-y-180'
+              }`}
               style={{ transformStyle: 'preserve-3d', zIndex: aberta ? 2 : 1 }}
             >
-              <p className="text-purple-700 text-center text-sm">{texto}</p>
+              <p className="text-purple-800 text-sm">{texto}</p>
             </div>
           </div>
         );

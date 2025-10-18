@@ -1,94 +1,131 @@
-import React, { useState, useEffect } from 'react';
+// client/src/components/PortalDesejos.jsx
+
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function PortalDesejos() {
-  const [desejo, setDesejo] = useState('');
+  const canvasRef = useRef(null);
   const [desejos, setDesejos] = useState([]);
-  const [mostrarInput, setMostrarInput] = useState(true);
+  const [texto, setTexto] = useState('');
 
-  const enviarDesejo = () => {
-    if (desejo.trim()) {
-      const novoDesejo = {
-        id: Date.now(),
-        texto: desejo,
-        left: Math.random() * 80 + 10,
-        top: Math.random() * 30 + 20
-      };
-      setDesejos([...desejos, novoDesejo]);
-      setDesejo('');
-      
-      // Remover desejo após animação
-      setTimeout(() => {
-        setDesejos(prev => prev.filter(d => d.id !== novoDesejo.id));
-      }, 5000);
-
-      // Aqui você pode enviar para um backend/email se quiser
-      console.log('Desejo enviado:', novoDesejo.texto);
-    }
+  // Inicializa desejos (estrelas cadentes) vindos do input
+  const enviarDesejo = (e) => {
+    e.preventDefault();
+    if (!texto.trim()) return;
+    setDesejos(prev => [
+      ...prev,
+      { id: Date.now(), x: 50, y: 90, texto }  // começa no centro, base
+    ]);
+    setTexto('');
   };
 
+  // Animações de canvas: estrelas estáticas e asteroides
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let asteroids = [];
+    const W = canvas.width = window.innerWidth;
+    const H = canvas.height = window.innerHeight;
+
+    // Cria estrelas de fundo
+    for (let i = 0; i < 200; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.5,
+        alpha: Math.random()
+      });
+    }
+    // Cria asteroides
+    for (let i = 0; i < 5; i++) {
+      asteroids.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random()-0.5)*0.5,
+        vy: (Math.random()-0.5)*0.5,
+        r: 2 + Math.random()*3
+      });
+    }
+
+    function draw() {
+      ctx.fillStyle = 'rgba(10,10,30,0.8)';
+      ctx.fillRect(0, 0, W, H);
+
+      // Desenha estrelas pulsantes
+      stars.forEach(s => {
+        s.alpha += (Math.random() - 0.5) * 0.02;
+        s.alpha = Math.max(0.2, Math.min(1, s.alpha));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+        ctx.fill();
+      });
+
+      // Desenha asteroides
+      asteroids.forEach(a => {
+        a.x += a.vx;
+        a.y += a.vy;
+        if (a.x < 0 || a.x > W) a.vx *= -1;
+        if (a.y < 0 || a.y > H) a.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, a.r, 0, 2*Math.PI);
+        ctx.fillStyle = 'rgba(200,200,200,0.6)';
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }, []);
+
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-purple-900 to-indigo-900 flex flex-col items-center justify-center p-8">
-      <div className="text-center mb-8 z-10">
-        <h2 className="text-5xl font-cursive text-purple-100 mb-4 animate-fadeIn">
-          Portal de Desejos 🌠
-        </h2>
-        <p className="text-xl text-purple-200">
-          Feche os olhos, faça um desejo e veja ele voar para as estrelas...
-        </p>
-      </div>
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Canvas de fundo */}
+      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full z-0" />
 
-      {/* Campo de input */}
-      {mostrarInput && (
-        <div className="z-10 bg-white/10 backdrop-blur-md rounded-2xl p-6 max-w-md w-full animate-fadeIn">
-          <textarea
-            value={desejo}
-            onChange={(e) => setDesejo(e.target.value)}
-            placeholder="Digite seu desejo aqui..."
-            className="w-full h-32 p-4 rounded-lg bg-purple-50 text-purple-900 placeholder-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
-            onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && enviarDesejo()}
-          />
-          <button
-            onClick={enviarDesejo}
-            className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
-          >
-            Enviar para as Estrelas ✨
-          </button>
-        </div>
-      )}
+      {/* Formulário de desejo */}
+      <form
+        onSubmit={enviarDesejo}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2"
+      >
+        <input
+          value={texto}
+          onChange={e => setTexto(e.target.value)}
+          placeholder="Digite seu desejo..."
+          className="px-4 py-2 rounded-lg border border-purple-400 bg-white/80 focus:outline-none backdrop-blur-sm"
+        />
+        <button
+          type="submit"
+          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+        >
+          ✨
+        </button>
+      </form>
 
-      {/* Desejos voando */}
+      {/* Estrelas cadentes */}
       {desejos.map(d => (
         <div
           key={d.id}
-          className="absolute text-yellow-200 text-2xl pointer-events-none"
+          className="absolute text-white text-4xl z-10"
           style={{
-            left: `${d.left}%`,
-            top: `${d.top}%`,
-            animation: 'voarEstrela 5s ease-out forwards',
-            textShadow: '0 0 10px rgba(251, 191, 36, 0.8)'
+            left: `${d.x}%`,
+            top: `${d.y}%`,
+            transform: 'translate(-50%,0)',
+            animation: 'voarDesejo 3s ease-out forwards'
           }}
+          title={d.texto}
         >
           ⭐
         </div>
       ))}
 
-      {/* Céu estrelado de fundo */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-white rounded-full"
-            style={{
-              width: Math.random() * 3 + 1 + 'px',
-              height: Math.random() * 3 + 1 + 'px',
-              left: Math.random() * 100 + '%',
-              top: Math.random() * 100 + '%',
-              animation: `piscar ${Math.random() * 3 + 2}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 2}s`
-            }}
-          />
-        ))}
-      </div>
+      {/* Keyframes inline */}
+      <style jsx global>{`
+        @keyframes voarDesejo {
+          0%   { transform: translate(-50%, 0) scale(1); opacity: 1; }
+          70%  { opacity: 1; }
+          100% { transform: translate(-50%, -120vh) scale(0.5); opacity: 0; }
+        }
+      `}</style>
     </div>
   );
 }
