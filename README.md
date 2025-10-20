@@ -62,6 +62,7 @@ Um aplicativo web interativo e romântico para celebrar momentos especiais de Gu
 
 ## Estrutura de Pastas
 
+```
 client/
 ├── public/
 │   ├── audio/
@@ -89,7 +90,7 @@ client/
 │   └── index.css
 ├── package.json
 └── README.md
-
+```
 
 ## Instalação e Execução
 
@@ -125,4 +126,5 @@ Acesse em `http://localhost:3000`.
 
 - Desenvolvido por **Gustavo Mimoso** como presente para **Cailane**.  
 - MIT License.
+
 
