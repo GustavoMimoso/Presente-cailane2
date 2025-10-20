@@ -64,31 +64,32 @@ Um aplicativo web interativo e romântico para celebrar momentos especiais de Gu
 
 client/
 ├── public/
-│ ├── audio/
-│ │ └── musica-romantica.mp3
-│ └── fotos/ # 52 imagens: foto1.jpg … foto52.jpg
+│   ├── audio/
+│   │   └── musica-romantica.mp3
+│   └── fotos/              # 52 imagens: foto1.jpg … foto52.jpg
 ├── src/
-│ ├── audio/ # Áudio de pétalas, trilha adicional
-│ ├── assets/ # Imagens e ícones estáticos
-│ ├── components/
-│ │ ├── ArvoreMemoria.jsx
-│ │ ├── BorboletasAnimadas.jsx
-│ │ ├── CartasSecretas.jsx
-│ │ ├── ContadorCasamento.jsx
-│ │ ├── ContadorTempo.jsx
-│ │ ├── DetectorAmor.jsx
-│ │ ├── GaleriaFotos.jsx
-│ │ ├── LinhaDoTempo.jsx
-│ │ ├── ModoNoturno.jsx
-│ │ ├── ParticularsBrilho.jsx
-│ │ ├── PetalasCaindo.jsx
-│ │ ├── PortalDesejos.jsx
-│ │ ├── RosaPerfeita.jsx
-│ │ └── TulipasLaterais.jsx
-│ ├── App.js
-│ └── index.css
+│   ├── audio/              # Áudio de pétalas, trilha adicional
+│   ├── assets/             # Imagens e ícones estáticos
+│   ├── components/
+│   │   ├── ArvoreMemoria.jsx
+│   │   ├── BorboletasAnimadas.jsx
+│   │   ├── CartasSecretas.jsx
+│   │   ├── ContadorCasamento.jsx
+│   │   ├── ContadorTempo.jsx
+│   │   ├── DetectorAmor.jsx
+│   │   ├── GaleriaFotos.jsx
+│   │   ├── LinhaDoTempo.jsx
+│   │   ├── ModoNoturno.jsx
+│   │   ├── ParticularsBrilho.jsx
+│   │   ├── PetalasCaindo.jsx
+│   │   ├── PortalDesejos.jsx
+│   │   ├── RosaPerfeita.jsx
+│   │   └── TulipasLaterais.jsx
+│   ├── App.js
+│   └── index.css
 ├── package.json
 └── README.md
+
 
 ## Instalação e Execução
 
@@ -124,3 +125,4 @@ Acesse em `http://localhost:3000`.
 
 - Desenvolvido por **Gustavo Mimoso** como presente para **Cailane**.  
 - MIT License.
+
